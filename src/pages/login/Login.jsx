@@ -8,7 +8,9 @@ const Login = () => {
 
   return (
     <div className="layout credential">
-      <img src={logo} alt="unsplashnt" />
+      <Link to="/">
+        <img src={logo} alt="unsplashnt" />
+      </Link>
       <h2 className="p-2 font-semibold text-xl">¡Welcome to Unspashn`t!</h2>
       <div className="flex items-center justify-center flex-col  h-[40vh] w-[40vw]">
         <input className="border w-[80%] p-2 mb-4 rounded" placeholder="User" />

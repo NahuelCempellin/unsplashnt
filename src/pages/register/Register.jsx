@@ -8,8 +8,10 @@ const Register = () => {
 
   return (
     <div className="layout credential">
-      <img src={logo} alt="unsplashnt" />
-      <h2 className="p-2 font-semibold text-xl">¡Join Unsplashn`t!</h2>
+      <Link to="/">
+        <img src={logo} alt="unsplashnt" />
+      </Link>
+      <h2 className="p-2 font-semibold text-xl">¡Join to Unsplashn`t!</h2>
       <div className="flex items-center justify-center flex-col  h-[40vh] w-[40vw]">
         <div className="w-full flex items-center justify-center flex-col relative">
           <div className="w-[80%] flex items-center justify-between mb-4">
