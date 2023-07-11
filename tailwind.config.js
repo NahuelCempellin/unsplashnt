@@ -5,19 +5,20 @@ export default {
     extend: {},
   },
   plugins: [
+    import("tw-elements/dist/plugin.cjs"),
     function ({ addComponents }) {
       const layout = {
         ".primary": {
           background: "#ffffff",
           color: "black",
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
         },
         ".secondary": {
           background: "#000000",
           color: "white",
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
         },
 
         ".credential": {

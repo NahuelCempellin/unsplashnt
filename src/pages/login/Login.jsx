@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/unsplashnt.svg";
@@ -10,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState({
     email: "",
@@ -34,6 +36,9 @@ const Login = () => {
       });
 
       dispatch(getUser(response.data.getUser));
+      if (response) {
+        navigate("/home");
+      }
     } catch (error) {
       console.log(error);
     }

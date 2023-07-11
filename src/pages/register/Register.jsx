@@ -2,12 +2,49 @@ import { useState } from "react";
 import logo from "../../assets/unsplashnt.svg";
 import { Eye, EyeOff } from "tabler-icons-react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { USER_REGISTER } from "../../constants/constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [open, setOpen] = useState(false);
+  const [register, setRegister] = useState({
+    fristname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handlerRegister = (e) => {
+    setRegister({
+      ...register,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const sendData = async () => {
+    try {
+      const response = await toast.promise(
+        axios.post(USER_REGISTER, register),
+        {
+          pending: "Please wait...",
+          success: "Register successfully 👌",
+          error: "Error. Verify the fields and try again.",
+        }
+      );
+      console.log(response);
+      // dispatch(getUser(response.data.getUser));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="layout credential">
+      <ToastContainer />
       <Link to="/">
         <img src={logo} alt="unsplashnt" />
       </Link>
@@ -15,24 +52,37 @@ const Register = () => {
       <div className="flex items-center justify-center flex-col  h-[40vh] w-[40vw]">
         <div className="w-full flex items-center justify-center flex-col relative">
           <div className="w-[80%] flex items-center justify-between mb-4">
-            <input className="border w-[48%] p-2 rounded" placeholder="Name" />
             <input
+              name="fristname"
+              onChange={(e) => handlerRegister(e)}
+              className="border w-[48%] p-2 rounded"
+              placeholder="Name"
+            />
+            <input
+              name="lastname"
+              onChange={(e) => handlerRegister(e)}
               className="border w-[48%] p-2 rounded"
               placeholder="Lastname"
             />
           </div>
 
           <input
+            name="username"
+            onChange={(e) => handlerRegister(e)}
             className="border w-[80%] p-2 mb-4 rounded"
             placeholder="User"
           />
 
           <input
+            name="email"
+            onChange={(e) => handlerRegister(e)}
             className="border w-[80%] p-2 mb-4 rounded"
-            placeholder="Mail"
+            placeholder="email"
           />
 
           <input
+            name="password"
+            onChange={(e) => handlerRegister(e)}
             className="border w-[80%] p-2 rounded"
             placeholder="Password"
             type={open === false ? "password" : ""}
@@ -50,7 +100,10 @@ const Register = () => {
           </div>
           <div className="font-light text-xs mb-4  p-2"></div>
         </div>
-        <button className="text-white bg-black w-[80%] p-2 rounded">
+        <button
+          onClick={() => sendData()}
+          className="text-white bg-black w-[80%] p-2 rounded"
+        >
           Register
         </button>
       </div>
