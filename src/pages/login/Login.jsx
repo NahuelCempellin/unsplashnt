@@ -35,6 +35,8 @@ const Login = () => {
         error: "Error. Please, verify the email or password 🤯",
       });
 
+      const usuario = JSON.stringify(response.data.getUser);
+      localStorage.setItem("user", usuario);
       dispatch(getUser(response.data.getUser));
       if (response) {
         navigate("/home");

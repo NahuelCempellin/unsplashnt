@@ -1,7 +1,21 @@
 import "./App.css";
 import { Search } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const usuario = JSON.parse(user);
+    if (usuario) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div className="layout primary flex items-center justify-center">
       <header className="video-container">

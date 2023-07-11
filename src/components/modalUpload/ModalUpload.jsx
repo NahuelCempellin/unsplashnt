@@ -15,7 +15,7 @@ export default function Modal() {
     descrip: "",
     url: "",
     tags: [],
-    owner: login.user[0]._id,
+    // owner: login.user[0]._id,
   });
   const dataHandler = (e) => {
     setData({

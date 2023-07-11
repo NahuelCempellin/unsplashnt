@@ -7,31 +7,31 @@ import HomeCards from "./cards/HomeCards";
 
 const Home = () => {
   const { login } = useSelector((state) => state);
-
+  const [data, setData] = useState(null);
   const [photos, setPhotos] = useState(null);
 
   useEffect(() => {
     const response = async () => {
-      const own = login.user.map((el) => el._id);
-      const owner = own[0];
+      const usuario = localStorage.getItem("user");
+      const us = JSON.parse(usuario);
+      const own = us._id;
+      setData(us);
 
-      const res = await axios.get(USER_PHOTOS + owner);
+      const res = await axios.get(USER_PHOTOS + own);
       setPhotos(res.data);
     };
 
     response();
-  }, [login, photos]);
+  }, [login]);
 
   return (
     <div className="layout primary flex flex-col justify-center items-center">
       <div className="w-full p-4 flex items-center justify-start">
-        {login.user.map((el, i) => {
-          return (
-            <h1 key={i} className="font-semibold text-2xl">{`Hi! ${
-              el.fristname + " " + el.lastname
-            }`}</h1>
-          );
-        })}
+        {data && (
+          <h1 className="font-semibold text-2xl">{`Hi! ${
+            data.fristname + " " + data.lastname
+          }`}</h1>
+        )}
       </div>
       <div className="grid-gallery">
         {photos &&
