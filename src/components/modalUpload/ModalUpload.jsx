@@ -1,22 +1,28 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+
 import { Upload, CloudUpload } from "tabler-icons-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { UPLOAD_PHOTOS } from "../../constants/constants";
 
 export default function Modal() {
-  const { login } = useSelector((state) => state);
-
   const [showModal, setShowModal] = React.useState(false);
+
   const [data, setData] = useState({
     name: "",
     title: "",
     descrip: "",
     url: "",
     tags: [],
-    // owner: login.user[0]._id,
+    owner: "",
   });
+  const user = localStorage.getItem("user");
+  const us = JSON.parse(user);
+
+  useEffect(() => {
+    setData({ ...data, owner: us._id });
+  }, [user]);
+
   const dataHandler = (e) => {
     setData({
       ...data,
@@ -25,8 +31,10 @@ export default function Modal() {
   };
 
   const tagsHandler = (e) => {
-    e.preventDefault();
-    setData({ ...data.data.url.push(e.target.value) });
+    setData({
+      ...data,
+      tags: [...data.tags, e.target.value],
+    });
   };
 
   const handlerSubmit = async () => {
@@ -111,7 +119,7 @@ export default function Modal() {
                       />
                     </div>
                     <select
-                      onChange={(e) => tagsHandler(e)}
+                      onClick={(e) => tagsHandler(e)}
                       name="tags"
                       className="p-1 w-full  rounded border mt-1 mb-1"
                     >

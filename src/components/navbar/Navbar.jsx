@@ -1,16 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logoutUser } from "../../features/loginSlice/loginSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
-import { Upload, Search } from "tabler-icons-react";
+import { Menu2 } from "tabler-icons-react";
 import Modal from "../modalUpload/ModalUpload";
 import { useEffect, useState } from "react";
+import Searchbar from "./Searchbar";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isAuth, setAuth] = useState(false);
-  const { login } = useSelector((state) => state);
+
   const usuario = localStorage.getItem("user");
   const data = JSON.parse(usuario);
 
@@ -30,19 +31,12 @@ const Navbar = () => {
 
   return (
     <div className="w-[98%] flex items-center justify-between p-2 border-b">
-      {isAuth ? (
+      {!isAuth ? (
         <Logo />
       ) : (
-        <div className="w-[50%] pt-2 relative flex items-center justify-between">
+        <div className="w-[70%] pt-2 flex items-center justify-between max-[800px]:w-[80%]">
           <Logo />
-          <input
-            placeholder="Search images..."
-            className="w-[50%] p-2 rounded border"
-          />
-
-          <div className="absolute ml-[665px] mt-[-5px]">
-            <Search color="gray" />
-          </div>
+          <Searchbar />
         </div>
       )}
 
@@ -57,11 +51,16 @@ const Navbar = () => {
           </Link>
         </div>
       ) : (
-        <div className="flex items-center justify-between  w-[20%]">
-          <div>
-            <Modal />
+        <div className="flex items-center justify-between  w-[30%] sm:w-[25%] max-[800px]:justify-end">
+          <div className="hidden max-[800px]:flex">
+            <Menu2 />
           </div>
-          {data && <button onClick={() => logout()}>{data.fristname}</button>}
+          <div className="w-[100%] flex items-center justify-between max-[800px]:hidden">
+            <div>
+              <Modal />
+            </div>
+            {data && <button onClick={() => logout()}>{"Logout"}</button>}
+          </div>
         </div>
       )}
     </div>

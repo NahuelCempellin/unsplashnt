@@ -1,7 +1,7 @@
 import "./animations.css";
 import ModalDelete from "../../../components/modalUpload/ModalDelete";
 
-const HomeCards = ({ url, title, descrip }) => {
+const HomeCards = ({ url, title, descrip, id }) => {
   return (
     <a className="grid-gallery__item" href="#" id="banish-box">
       <div
@@ -9,7 +9,7 @@ const HomeCards = ({ url, title, descrip }) => {
         id="banish"
       >
         <div className="bg-red-500 p-1 rounded">
-          <ModalDelete />
+          <ModalDelete _id={id} />
         </div>
       </div>
       <img className="grid-gallery__image" src={url} />

@@ -1,24 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Trash } from "tabler-icons-react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { UPLOAD_PHOTOS } from "../../constants/constants";
+import { DELETE } from "../../constants/constants";
 
-export default function ModalDelete() {
+export default function ModalDelete({ _id }) {
   const [showModal, setShowModal] = React.useState(false);
   const [data, setData] = useState({
+    _id: _id,
+    user: "",
     password: "",
   });
 
+  const user = localStorage.getItem("user");
+  const us = JSON.parse(user);
+
+  useEffect(() => {
+    setData({ ...data, user: us.fristname });
+  }, [user.password]);
+
   const handlerSubmit = async () => {
     try {
-      const response = await toast.promise(axios.post(UPLOAD_PHOTOS, data), {
+      const response = await toast.promise(axios.delete(DELETE, data), {
         pending: "Promise is pending",
         success: "Upload successfully 👌",
         error: "Error 🤯",
       });
 
       console.log(response);
+
+      console.log(data);
 
       setShowModal(false);
     } catch (error) {
@@ -64,6 +75,10 @@ export default function ModalDelete() {
                     placeholder="Enter your password..."
                     className="border rounded p-2 w-[80%]"
                     type="password"
+                    value={data.password}
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
                   />
                 </div>
                 {/*footer*/}

@@ -21,6 +21,8 @@ const Home = () => {
       setPhotos(res.data);
     };
 
+    console.log(photos);
+
     response();
   }, [login]);
 
@@ -42,6 +44,7 @@ const Home = () => {
                 title={el.title}
                 descrip={el.descrip}
                 url={el.url}
+                id={el._id}
               />
             );
           })}
